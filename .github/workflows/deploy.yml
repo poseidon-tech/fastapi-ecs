@@ -43,10 +43,9 @@ jobs:
       - name: Deploy to Amazon ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          cluster: ${{ env.ECS_CLUSTER }}
+          task-definition: arn:aws:ecs:ap-northeast-3:561802747706:task-definition/fastapi-task:1
           service: ${{ env.ECS_SERVICE }}
-          task-definition-family: fastapi-task         # 👈 your task definition name
-          container-name: ${{ env.CONTAINER_NAME }}
-          image: ${{ steps.ecr-login.outputs.registry }}/${{ env.ECR_REPOSITORY }}:latest
+          cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: true
+
 
