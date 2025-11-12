@@ -6,13 +6,14 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  ECR_REPOSITORY: fastapi-app
+  ECR_REPOSITORY: fastapi_ecs_app
   ECS_SERVICE: fastapi-service
   ECS_CLUSTER: fastapi-cluster
   CONTAINER_NAME: fastapi-container
 
 jobs:
   deploy:
+    environment: test
     runs-on: ubuntu-latest
 
     steps:
