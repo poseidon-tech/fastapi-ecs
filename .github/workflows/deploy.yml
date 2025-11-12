@@ -40,12 +40,14 @@ jobs:
           docker push "$IMAGE_URI"
           
 
-      - name: Deploy to Amazon ECS
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: arn:aws:ecs:ap-northeast-3:561802747706:task-definition/fastapi-task:1
-          service: ${{ env.ECS_SERVICE }}
-          cluster: ${{ env.ECS_CLUSTER }}
-          wait-for-service-stability: true
-
+      - name: Deploy to Amazon ECS (force new deployment)
+        run: |
+          IMAGE_URI=${{ steps.ecr-login.outputs.registry }}/${{ env.ECR_REPOSITORY }}:latest
+          echo "Forcing ECS service to redeploy using $IMAGE_URI"
+          aws ecs update-service \
+            --cluster ${{ env.ECS_CLUSTER }} \
+            --service ${{ env.ECS_SERVICE }} \
+            --force-new-deployment \
+            --region ${{ env.AWS_REGION }}
+      
 
