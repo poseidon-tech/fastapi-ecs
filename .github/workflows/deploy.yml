@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 env:
-  AWS_REGION: us-east-1
+  AWS_REGION: ap-northeast-3
   ECR_REPOSITORY: fastapi_ecs_app
   ECS_SERVICE: fastapi-service
   ECS_CLUSTER: fastapi-cluster
